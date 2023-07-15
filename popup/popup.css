@@ -1,0 +1,52 @@
+.btnPrimary {
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.btnPrimary:hover {
+    background-color: #333333;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    padding: 15px 20px 5px 20px;
+    background-color: #eeeeee;
+}
+
+.title {
+    display: inline-block;
+    font-size: large;
+    margin-top: 24px;
+}
+
+.title-tag {
+    display: inline-block;
+    font-size: smaller;
+}
+
+.paragraph{
+    font-size: small;
+}
+
+.link-footer {
+    color: black;
+    font-size: small;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.link-footer:hover {
+    color: black;
+    text-decoration-line: underline;
+}
+
+.right-align {
+    direction: rtl;
+}
