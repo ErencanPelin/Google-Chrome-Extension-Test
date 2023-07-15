@@ -4,16 +4,17 @@
     color: white;
     font-weight: bold;
     padding: 5px 20px;
+    margin-bottom: 20px;
+}
+
+.btnPrimary:hover {
+    background-color: #333333;
 }
 
 .text-bold{
     font-weight: bold;
 }
 
-.btnPrimary:hover {
-    background-color: #333333;
-    margin-bottom: 20px;
-}
 
 .section-header {
     padding: 15px 20px 5px 20px;
