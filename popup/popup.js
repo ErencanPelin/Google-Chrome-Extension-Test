@@ -38,13 +38,13 @@ var getArticles = async (keywords) => {
 //find keywords in heading
 function getKeywords(head) {
   var keywords = "";
-  const regex = /(([A-Z]|[0-9])(([a-z]|[0-9])*))/g;
+  const regex = /(([A-Z]|[0-9])(([A-Z]|[a-z]|[0-9])*))/g;
   const found = head.toString().match(regex);
   found.forEach(element => {
-    keywords += element + " ";
+    keywords += element + ", ";
   });
 
-  document.getElementById("articleKeywords").textContent = keywords.replace(' ', ', ');
+  document.getElementById("articleKeywords").textContent = keywords;//.replace(" ", "', '");
   return keywords;
 }
 
@@ -68,7 +68,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
       articleHeading = out;
       if (out == null) {
         articleHeading = null;
-        document.getElementById("articleHeadingOut").textContent = "No other relevant news articles found.";
+        document.getElementById("articleHeadingOut").textContent = "No article found.";
         return;
       }
       let keywords = getKeywords(out);
