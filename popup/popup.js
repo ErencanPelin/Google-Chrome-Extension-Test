@@ -1,9 +1,6 @@
 var tab_title = '';
+var articleHeading = "";
 
-/* document.getElementById('summarizeBtn').addEventListener("click", function (event) {
-
-});
- */
 const functionToExecute = () => {
   return document.querySelector("h1").textContent;
 };
@@ -13,14 +10,19 @@ chrome.tabs.query({ active: true }, function (tabs) {
   tab_title = tab.title;
 
   chrome.scripting.executeScript(
-      {
-          target: { tabId: tab.id },
-          //files: ["/scripts/content.js"],
-          function: functionToExecute
-      },
-       (res) => {
-          var out = res[0].result;
-          if (out == null) out = "Nothing relevant found.";
-          document.getElementById("output").textContent = '"' + out + '"';
-      })
+    {
+      target: { tabId: tab.id },
+      //files: ["/scripts/content.js"],
+      function: functionToExecute
+    },
+    (res) => {
+      var out = res[0].result;
+      articleHeading = out;
+      if (out == null) {
+        articleHeading = null;
+        document.getElementById("output").textContent = "No other relevant news articles found.";
+        return;
+      }
+      document.getElementById("output").textContent = '"' + out + '"';
+    })
 });
