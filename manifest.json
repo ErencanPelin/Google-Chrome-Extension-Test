@@ -9,7 +9,7 @@
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_icon": "images/logo_noback_32.png"
+    "default_icon": "images/tms_logo.png"
   },
   "background": {
     "service_worker": "background.js"
