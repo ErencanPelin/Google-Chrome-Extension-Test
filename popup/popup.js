@@ -1,4 +1,4 @@
-import { getNews } from "../scripts/newsAPI";
+import { getNews } from "./../scripts/newsAPI.js";
 
 var tab_title = '';
 var articleHeading = "";

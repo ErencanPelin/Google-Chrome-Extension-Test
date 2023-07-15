@@ -1,4 +1,4 @@
-import { newsAPI_Key } from "../secrets.js";
+import { newsAPI_Key } from "./../secrets.js";
 
 var apiKey = newsAPI_Key;
 
