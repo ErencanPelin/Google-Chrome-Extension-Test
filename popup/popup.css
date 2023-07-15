@@ -41,6 +41,7 @@
     font-size: small;
     vertical-align: middle;
     text-decoration: none;
+    margin-left: 10px;
 }
 
 .link-footer:hover {

@@ -50,7 +50,7 @@ function getKeywords(head) {
 
 //read heading from page
 const readH1 = () => {
-  var articleHead = document.querySelector("h1").textContent;
+  var articleHead = document.querySelector("p").textContent;
   return articleHead;
 };
 
