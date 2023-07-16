@@ -16,12 +16,18 @@ document.getElementById('summarizeBtn').addEventListener('click', async function
   console.log(articlesResult);
   articlesResult.articles.forEach((a) => {
     const fragment = document.createDocumentFragment();
+    var div = document.createElement("div");
+    div.classList.add("article-link-div");
+    var link = document.createElement("a");
+    link.classList.add("article-link");
     const li = fragment
-      .appendChild(document.createElement("div"))
-      .appendChild(document.createElement("h3"));
+      .appendChild(div)
+      .appendChild(link);
     li.textContent = a.title + ' by ' + a.author;
+    li.href = a.url;
 
-    document.body.appendChild(fragment);
+    document.getElementById("articleList").appendChild(fragment);
+    document.getElementById("summaryOut").textContent = "Here's what we found on the web:";
   })
 });
 
