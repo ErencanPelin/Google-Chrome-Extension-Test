@@ -11,7 +11,7 @@ document.getElementById('summarizeBtn').addEventListener('click', async function
   document.getElementById('summarizeBtn').remove();
   //send query to newsAPI
   let q = articleHeading;
-  var articlesResult = await getNews(keywords.replace(', ', '-'));
+  var articlesResult = await getNews(keywords.replaceAll(', ', '-'));
   if (articlesResult == null) return;
   console.log(articlesResult);
   articlesResult.articles.forEach((a) => {

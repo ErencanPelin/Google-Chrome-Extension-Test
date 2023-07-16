@@ -7,7 +7,21 @@ var getNews = async (keywords) => {
     let response = await fetch(requestURL);
     console.log(response);
     if (!response.ok) {
-        alert("Data unavailable at the moment. Please try again later");
+        console.log(response.status);
+        switch (response.status) {
+            case 426:
+                alert("You have exceeded the number of free NewsAPI requests available. Please wait before trying again, or upgrade to a commercial plan.");
+                break;
+            case 429:
+                alert("Too many requests. Please wait before trying again");
+                break;
+            case 400:
+                alert("Bad request. Please wait before trying again");
+                break;
+            case 500:
+                alert("Server error. Please wait before trying again");
+                break;
+        }
         return null;
     }
     let data = await response.json();
