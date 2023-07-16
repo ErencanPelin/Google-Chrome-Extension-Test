@@ -2,8 +2,8 @@ import { newsAPI_Key } from "./../secrets.js";
 
 var apiKey = newsAPI_Key;
 
-let requestURL = 'https://newsapi.org/v2/everything?apiKey=' + apiKey;
-var getNews = async () => {
+var getNews = async (keywords) => {
+    let requestURL = 'https://newsapi.org/v2/everything?q=' + keywords + '&apiKey=' + apiKey;
     let response = await fetch(requestURL);
     console.log(response);
     if (!response.ok) {
@@ -11,8 +11,7 @@ var getNews = async () => {
         return null;
     }
     let data = await response.json();
-    console.log(data);
-    return data.articles;
+    return data;
 };
 
 export { getNews };
