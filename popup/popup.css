@@ -32,6 +32,14 @@
     font-size: smaller;
 }
 
+.article-link-div{
+    padding-top: 10px;
+}
+
+.article-link{
+    color: #666666;
+}
+
 .paragraph{
     font-size: small;
 }

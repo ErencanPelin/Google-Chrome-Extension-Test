@@ -1,39 +1,35 @@
 import { getNews } from "./../scripts/newsAPI.js";
 
+var keywords = '';
 var tab_title = '';
 var articleHeading = "";
 
 //generate summary button click event
-document.getElementById('summarizeBtn').addEventListener('click', function (event) {
+document.getElementById('summarizeBtn').addEventListener('click', async function (event) {
   console.log("generating summary");
   document.getElementById("summaryOut").textContent = "Generating Summary. Please wait...";
   document.getElementById('summarizeBtn').remove();
   //send query to newsAPI
   let q = articleHeading;
-  getNews();
+  var articlesResult = await getNews(keywords.replaceAll(', ', '-'));
+  if (articlesResult == null) return;
+  console.log(articlesResult);
+  articlesResult.articles.forEach((a) => {
+    const fragment = document.createDocumentFragment();
+    var div = document.createElement("div");
+    div.classList.add("article-link-div");
+    var link = document.createElement("a");
+    link.classList.add("article-link");
+    const li = fragment
+      .appendChild(div)
+      .appendChild(link);
+    li.textContent = a.title + ' by ' + a.author;
+    li.href = a.url;
+
+    document.getElementById("articleList").appendChild(fragment);
+    document.getElementById("summaryOut").textContent = "Here's what we found on the web:";
+  })
 });
-
-//find articles in those keywords
-var getArticles = async (keywords) => {
-  var q = keywords.replace(' ', '-');
-  q = "https://themilsource.com/tag/" + q;
-  console.log(q);
-
-  //request
-  var response = await fetch(q);
-    switch (response.status) {
-        // status "OK"
-        case 200:
-            var template = await response.body.getReader().read();
-
-            console.log(template);
-            break;
-        // status "Not Found"
-        case 404:
-            console.log('Not Found');
-            break;
-    }
-}
 
 //find keywords in heading
 function getKeywords(head) {
@@ -71,8 +67,7 @@ chrome.tabs.query({ active: true }, function (tabs) {
         document.getElementById("articleHeadingOut").textContent = "No article found.";
         return;
       }
-      let keywords = getKeywords(out);
-      getArticles(keywords);
+      keywords = getKeywords(out);
       document.getElementById("articleHeadingOut").textContent = '"' + out + '"';
     })
 });
