@@ -148,6 +148,8 @@ const stopwords = [
     "exactly",
     "example",
     "except",
+    "expect",
+    "expected",
     "f",
     "far",
     "few",
