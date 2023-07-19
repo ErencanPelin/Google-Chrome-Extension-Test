@@ -1,4 +1,5 @@
 import { getNews } from "./../scripts/newsAPI.js";
+import * as keyword_extractor from "./../scripts/lib/keyword_extractor.js";
 
 var keywords = '';
 var tab_title = '';
@@ -11,7 +12,7 @@ document.getElementById('summarizeBtn').addEventListener('click', async function
   document.getElementById('summarizeBtn').remove();
   //send query to newsAPI
   let q = articleHeading;
-  var articlesResult = await getNews(keywords.replaceAll(', ', '-'));
+  var articlesResult = await getNews(keywords.toString().replaceAll(',', '-'));
   if (articlesResult == null) return;
   console.log(articlesResult);
   articlesResult.articles.forEach((a) => {
@@ -31,22 +32,46 @@ document.getElementById('summarizeBtn').addEventListener('click', async function
   })
 });
 
+//find articles in those keywords
+var getArticles = async (keywords) => {
+  var q = keywords.replace(' ', '-');
+  q = "https://themilsource.com/tag/" + q;
+  console.log(q);
+
+  //request
+  var response = await fetch(q);
+  switch (response.status) {
+    // status "OK"
+    case 200:
+      var template = await response.body.getReader().read();
+
+      console.log(template);
+      break;
+    // status "Not Found"
+    case 404:
+      console.log('Not Found');
+      break;
+  }
+}
+
 //find keywords in heading
 function getKeywords(head) {
-  var keywords = "";
-  const regex = /(([A-Z]|[0-9])(([A-Z]|[a-z]|[0-9])*))/g;
-  const found = head.toString().match(regex);
-  found.forEach(element => {
-    keywords += element + ", ";
-  });
+  var keywords =
+    keyword_extractor.extract(head, {
+      language: "english",
+      remove_digits: true,
+      return_changed_case: true,
+      remove_duplicates: true
+    });
 
-  document.getElementById("articleKeywords").textContent = keywords;//.replace(" ", "', '");
+  document.getElementById("articleKeywords").textContent = keywords.toString().replaceAll(',', ', ');
   return keywords;
 }
 
 //read heading from page
 const readH1 = () => {
-  var articleHead = document.querySelector("p").textContent;
+  var articleHead = document.querySelector("h1").textContent;
+  articleHead += ". " + document.querySelector("p").textContent;
   return articleHead;
 };
 
